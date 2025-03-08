@@ -70,6 +70,7 @@ if audio_data is not None:
     
     sampling_rates = [Fs_under, Fs_critical, Fs_over]
     titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
+    color = ["red", "redorange","darkblue"]
 
     # Function to plot frequency spectrum
     def plot_frequency_spectrum(audio_signal, sample_rate, title, ax):
@@ -78,7 +79,7 @@ if audio_data is not None:
         fft_freqs = np.fft.fftfreq(N, 1 / sample_rate)
         positive_freqs = fft_freqs[:N // 2]
         positive_fft_data = np.abs(fft_data[:N // 2])
-        ax.plot(positive_freqs, positive_fft_data, color="blue")
+        ax.plot(positive_freqs, positive_fft_data, color)
         ax.set_xlabel("Frequency (Hz)")
         ax.set_ylabel("Magnitude")
         ax.set_title(title)
@@ -86,7 +87,7 @@ if audio_data is not None:
 
     # Plot Frequency Spectrum
     fig, axs = plt.subplots(4, 1, figsize=(10, 23))
-    plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0])
+    plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0], color='darkviolet')
 
     for i, Fs in enumerate(sampling_rates):
         sample_indices = np.arange(0, len(audio_data), sample_rate // Fs)
