@@ -85,7 +85,7 @@ if audio_data is not None:
 
     # Plot original waveform
     fig, ax = plt.subplots()
-    ax.plot(np.arange(len(audio_data)) / sample_rate, audio_data)
+    ax.plot(np.arange(len(audio_data)) / sample_rate, audio_data, colour='darkviolet')
     ax.set_xlabel("Time (s)")
     ax.set_ylabel("Amplitude")
     ax.set_title("Original Signal")
