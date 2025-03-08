@@ -94,27 +94,6 @@ if audio_data is not None:
     sampling_rates = [Fs_under, Fs_critical, Fs_over]
     titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
 
-    for i, Fs in enumerate(sampling_rates):
-        # Sample the signal
-        sample_indices = np.arange(0, len(audio_data), sample_rate // Fs)
-        sampled_signal = audio_data[sample_indices]
-        sampled_time = sample_indices / sample_rate
-
-        # Reconstruct the signal
-        t_interp = np.linspace(0, len(audio_data) / sample_rate, len(audio_data))
-        reconstructed_signal = np.interp(t_interp, sampled_time, sampled_signal)
-
-        # Plot the sampled signal
-        axs[i].plot(np.arange(len(audio_data)) / sample_rate, audio_data, "gray", alpha=0.5, label="Original")
-        axs[i].scatter(sampled_time, sampled_signal, color="red", label="Sampled Points")
-        axs[i].plot(t_interp, reconstructed_signal, "blue", linestyle="dashed", label="Reconstructed")
-
-        axs[i].set_title(titles[i] + f" (Fs = {Fs} Hz)")
-        axs[i].set_xlabel("Time (s)")
-        axs[i].set_ylabel("Amplitude")
-        axs[i].legend()
-
-    st.pyplot(fig)
 
     # Play reconstructed audio
     st.subheader("Reconstructed Audio")
