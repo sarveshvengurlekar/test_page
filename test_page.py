@@ -133,13 +133,13 @@ if audio_data is not None:
         ax.set_xlabel("Frequency (Hz)")
         ax.set_ylabel("Magnitude")
         ax.set_title(title)
-       ax.set_xlim(0, sample_rate / 2)  # Nyquist limit
+        ax.set_xlim(0, sample_rate / 2)  # Nyquist limit
 
-       # Plot the frequency spectra for original and sampled signals
-       fig, axs = plt.subplots(4, 1, figsize=(8, 12))
+        # Plot the frequency spectra for original and sampled signals
+        fig, axs = plt.subplots(4, 1, figsize=(8, 12))
 
-       # Original signal spectrum
-       plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0])
+        # Original signal spectrum
+        plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0])
 
        # Sampled signals and their spectra
        sampling_rates = [Fs_under, Fs_critical, Fs_over]
