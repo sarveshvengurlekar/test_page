@@ -70,30 +70,32 @@ if audio_data is not None:
 
     # Sampling controls
     st.sidebar.header("Sampling Parameters")
-    max_freq = st.sidebar.slider("Max Frequency Component (Hz)", 100, 5000, 1000)
+    
+    # Only show "Max Frequency Component" slider if the input method is "Generate Tone"
+    if input_method == "Generate Tone":
+        max_freq = st.sidebar.slider("Max Frequency Component (Hz)", 100, 5000, 1000)
 
-    # Default sampling rates
-    default_Fs_under = int(max_freq / 1.5)  # Undersampling (Aliasing)
-    default_Fs_critical = int(max_freq)  # Critical sampling
-    default_Fs_over = int(2.5 * max_freq)  # Oversampling
+        # Default sampling rates
+        default_Fs_under = int(max_freq / 1.5)  # Undersampling (Aliasing)
+        default_Fs_critical = int(max_freq)  # Critical sampling
+        default_Fs_over = int(2.5 * max_freq)  # Oversampling
 
-    # User-defined sampling rates
-    Fs_under = st.sidebar.number_input("Undersampling Frequency (Fs < Fm)", min_value=1, value=default_Fs_under)
-    Fs_critical = st.sidebar.number_input("Critical Sampling Frequency (Fs = Fm)", min_value=1, value=default_Fs_critical)
-    Fs_over = st.sidebar.number_input("Oversampling Frequency (Fs > 2Fm)", min_value=1, value=default_Fs_over)
+        # User-defined sampling rates
+        Fs_under = st.sidebar.number_input("Undersampling Frequency (Fs < Fm)", min_value=1, value=default_Fs_under)
+        Fs_critical = st.sidebar.number_input("Critical Sampling Frequency (Fs = Fm)", min_value=1, value=default_Fs_critical)
+        Fs_over = st.sidebar.number_input("Oversampling Frequency (Fs > 2Fm)", min_value=1, value=default_Fs_over)
 
-    # Display calculated values
-    st.write("### Calculated Sampling Frequencies:")
-    st.write(f"🔴 **Undersampling Frequency (Aliasing):** {default_Fs_under} Hz")
-    st.write(f"🟠 **Critical Sampling Frequency:** {default_Fs_critical} Hz")
-    st.write(f"🟢 **Oversampling Frequency (No Aliasing):** {default_Fs_over} Hz")
+        # Display calculated values
+        st.write("### Calculated Sampling Frequencies:")
+        st.write(f"🔴 **Undersampling Frequency (Aliasing):** {default_Fs_under} Hz")
+        st.write(f"🟠 **Critical Sampling Frequency:** {default_Fs_critical} Hz")
+        st.write(f"🟢 **Oversampling Frequency (No Aliasing):** {default_Fs_over} Hz")
 
-    # Sampling demonstration
-    st.subheader("Sampling Demonstration")
-    fig, axs = plt.subplots(3, 1, figsize=(8, 10))
-    sampling_rates = [Fs_under, Fs_critical, Fs_over]
-    titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
-
+        # Sampling demonstration
+        st.subheader("Sampling Demonstration")
+        fig, axs = plt.subplots(3, 1, figsize=(8, 10))
+        sampling_rates = [Fs_under, Fs_critical, Fs_over]
+        titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
 
     # Play reconstructed audio
     st.subheader("Reconstructed Audio")
@@ -113,4 +115,3 @@ if audio_data is not None:
     - **Critical Sampling:** Barely preserves the original waveform.  
     - **Oversampling:** Reconstructs the signal accurately without aliasing.
     """)
-
