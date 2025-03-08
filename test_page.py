@@ -97,6 +97,17 @@ if audio_data is not None:
         sampling_rates = [Fs_under, Fs_critical, Fs_over]
         titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
 
+    # If input method is "Upload Audio File", set default values for sampling rates
+    else:
+        # Default sampling rates based on uploaded audio file's sampling rate
+        max_freq = sample_rate // 2  # Using Nyquist criterion (maximum frequency component)
+        Fs_under = int(max_freq / 1.5)  # Undersampling (Aliasing)
+        Fs_critical = int(max_freq)  # Critical sampling
+        Fs_over = int(2.5 * max_freq)  # Oversampling
+
+        sampling_rates = [Fs_under, Fs_critical, Fs_over]
+        titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
+
     # Play reconstructed audio
     st.subheader("Reconstructed Audio")
     for i, Fs in enumerate(sampling_rates):
