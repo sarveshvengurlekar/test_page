@@ -24,6 +24,7 @@ def convert_to_wav(audio_array, sample_rate):
 
 # Initialize audio_data as None
 audio_data = None
+sample_rate = 44100  # Default sample rate
 
 # Handle audio file upload
 if input_method == "Upload Audio File":
@@ -55,6 +56,28 @@ elif input_method == "Generate Tone":
 if audio_data is not None and audio_data.ndim > 1:
     audio_data = np.mean(audio_data, axis=1)
 
+# Function to calculate the maximum frequency from the audio data using FFT
+def get_max_frequency(audio_data, sample_rate):
+    # Compute the FFT of the audio signal
+    N = len(audio_data)
+    fft_data = np.fft.fft(audio_data)
+    fft_freqs = np.fft.fftfreq(N, 1 / sample_rate)
+
+    # Only consider the positive half of the frequencies (real signal)
+    positive_freqs = fft_freqs[:N // 2]
+    positive_fft_data = np.abs(fft_data[:N // 2])
+
+    # Get the index of the maximum frequency component
+    max_freq_idx = np.argmax(positive_fft_data)
+    max_freq = positive_freqs[max_freq_idx]
+
+    return max_freq
+
+# Calculate maximum frequency from the uploaded/generated audio
+if audio_data is not None:
+    max_freq = get_max_frequency(audio_data, sample_rate)
+    st.sidebar.write(f"Maximum Frequency Component: {max_freq:.2f} Hz")
+
 # Play original audio or tone
 if audio_data is not None:
     st.subheader("Original Audio Signal")
@@ -70,9 +93,11 @@ if audio_data is not None:
 
     # Sampling controls
     st.sidebar.header("Sampling Parameters")
-    max_freq = st.sidebar.slider("Max Frequency Component (Hz)", 100, 5000, 1000)
-
-    # Default sampling rates
+    
+    # Use the calculated maximum frequency instead of a fixed value
+    st.sidebar.write(f"Calculated Max Frequency: {max_freq:.2f} Hz")
+    
+    # Default sampling rates based on the calculated maximum frequency
     default_Fs_under = int(max_freq / 1.5)  # Undersampling (Aliasing)
     default_Fs_critical = int(max_freq)  # Critical sampling
     default_Fs_over = int(2.5 * max_freq)  # Oversampling
@@ -93,7 +118,6 @@ if audio_data is not None:
     fig, axs = plt.subplots(3, 1, figsize=(8, 10))
     sampling_rates = [Fs_under, Fs_critical, Fs_over]
     titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
-
 
     # Play reconstructed audio
     st.subheader("Reconstructed Audio")
