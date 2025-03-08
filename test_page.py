@@ -22,7 +22,7 @@ def convert_to_wav(audio_array, sample_rate):
         wf.writeframes((audio_array * 32767).astype(np.int16).tobytes())
     return wav_buffer.getvalue()
 
-# Initialize audio_data as None
+# Initialize variables
 audio_data = None
 sample_rate = 44100  # Default sample rate
 
@@ -60,9 +60,9 @@ if audio_data is not None:
     st.write(f"Maximum Frequency Component: {max_freq:.2f} Hz")
 
     # Sampling parameters
-    default_Fs_under = int(max_freq / 1.5)
-    default_Fs_critical = int(max_freq)
-    default_Fs_over = int(2.5 * max_freq)
+    default_Fs_under = int(max_freq / 1.5)  # Undersampling (Aliasing)
+    default_Fs_critical = int(max_freq)  # Critical sampling
+    default_Fs_over = int(2.5 * max_freq)  # Oversampling (No Aliasing)
 
     Fs_under = st.number_input("Undersampling Frequency (Fs < Fm)", min_value=1, value=default_Fs_under)
     Fs_critical = st.number_input("Critical Sampling Frequency (Fs = Fm)", min_value=1, value=default_Fs_critical)
@@ -70,7 +70,7 @@ if audio_data is not None:
     
     sampling_rates = [Fs_under, Fs_critical, Fs_over]
     titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
-    color = ["red", "orange", "darkblue"]
+    colors = ["red", "orange", "darkblue"]  # Fixed invalid color
 
     # Function to plot frequency spectrum
     def plot_frequency_spectrum(audio_signal, sample_rate, title, ax, color):
@@ -79,7 +79,7 @@ if audio_data is not None:
         fft_freqs = np.fft.fftfreq(N, 1 / sample_rate)
         positive_freqs = fft_freqs[:N // 2]
         positive_fft_data = np.abs(fft_data[:N // 2])
-        ax.plot(positive_freqs, positive_fft_data, color)
+        ax.plot(positive_freqs, positive_fft_data, color=color)
         ax.set_xlabel("Frequency (Hz)")
         ax.set_ylabel("Magnitude")
         ax.set_title(title)
@@ -87,17 +87,19 @@ if audio_data is not None:
 
     # Plot Frequency Spectrum
     fig, axs = plt.subplots(4, 1, figsize=(10, 23))
-    plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0], color='darkviolet')
 
+    # Original signal spectrum
+    plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0], "darkviolet")
+
+    # Plot sampled signal spectrums
     for i, Fs in enumerate(sampling_rates):
         sample_indices = np.arange(0, len(audio_data), sample_rate // Fs)
         sampled_signal = audio_data[sample_indices]
         reconstructed_signal = np.interp(np.arange(len(audio_data)), sample_indices, sampled_signal)
 
-    # Pass the correct color argument from the 'color' list
-    plot_frequency_spectrum(reconstructed_signal, sample_rate, f"{titles[i]} Spectrum", axs[i+1], color[i])
+        # Fixed: Pass color[i] argument
+        plot_frequency_spectrum(reconstructed_signal, sample_rate, f"{titles[i]} Spectrum", axs[i+1], colors[i])
 
-    
     st.pyplot(fig)
 
     # Play reconstructed audio
