@@ -44,7 +44,7 @@ if input_method == "Upload Audio File (.wav)":
         wav_bytes = file.read()
     # Streamlit download button
     st.download_button(
-        label="📥 Download Audio File",
+        label="Download Audio File",
         data=wav_bytes,
         file_name="downloaded_audio.wav",
         mime="audio/wav")
