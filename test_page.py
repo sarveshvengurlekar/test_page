@@ -109,15 +109,21 @@ if audio_data is not None:
         titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
 
     # Play reconstructed audio
-    st.subheader("Reconstructed Audio")
-    for i, Fs in enumerate(sampling_rates):
-        sample_indices = np.arange(0, len(audio_data), sample_rate // Fs)
-        sampled_signal = audio_data[sample_indices]
-        sampled_time = sample_indices / sample_rate
-        reconstructed_signal = np.interp(np.arange(len(audio_data)), sample_indices, sampled_signal)
+    # Play reconstructed audio
+st.subheader("Reconstructed Audio")
+for i, Fs in enumerate(sampling_rates):
+    # Calculate step size for sampling
+    sample_indices = np.arange(0, len(audio_data), int(sample_rate / Fs))
+    
+    # Ensure that the indices are within the bounds of the audio data
+    sampled_signal = audio_data[sample_indices]
+    sampled_time = sample_indices / sample_rate
+    
+    # Interpolate the sampled signal to reconstruct it
+    reconstructed_signal = np.interp(np.arange(len(audio_data)), sample_indices, sampled_signal)
 
-        st.write(f"🔊 {titles[i]} (Fs = {Fs} Hz)")
-        st.audio(convert_to_wav(reconstructed_signal, sample_rate), format="audio/wav")
+    st.write(f"🔊 {titles[i]} (Fs = {Fs} Hz)")
+    st.audio(convert_to_wav(reconstructed_signal, sample_rate), format="audio/wav")
 
     # Conclusion
     st.write("### Conclusion")
