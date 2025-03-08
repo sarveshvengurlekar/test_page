@@ -37,7 +37,7 @@ if input_method == "Upload Audio File (.wav)":
     upload_file = st.file_uploader("Upload an audio file (WAV)", type=["wav"])
 
     # Define the local file path
-    local_file_path = "path/to/your/audio.wav"  # Update this with the correct path
+    local_file_path = "audio2 (2).wav"  # Update this with the correct path
 
     # Read the file in binary mode
     with open(local_file_path, "rb") as file:
