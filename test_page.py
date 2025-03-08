@@ -28,7 +28,7 @@ sample_rate = 44100  # Default sample rate
 
 # Handle audio file upload
 if input_method == "Upload Audio File":
-    upload_file = st.sidebar.file_uploader("Upload an audio file (WAV)", type=["wav"])
+    upload_file = st.file_uploader("Upload an audio file (WAV)", type=["wav"])
     if upload_file:
         # Read uploaded file
         audio_data, sample_rate = sf.read(upload_file)
