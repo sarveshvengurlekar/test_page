@@ -73,7 +73,7 @@ if audio_data is not None:
     color = ["red", "redorange","darkblue"]
 
     # Function to plot frequency spectrum
-    def plot_frequency_spectrum(audio_signal, sample_rate, title, ax):
+    def plot_frequency_spectrum(audio_signal, sample_rate, title, ax, color):
         N = len(audio_signal)
         fft_data = np.fft.fft(audio_signal)
         fft_freqs = np.fft.fftfreq(N, 1 / sample_rate)
