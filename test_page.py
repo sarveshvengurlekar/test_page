@@ -5,6 +5,12 @@ import soundfile as sf
 import io
 import wave
 
+st.set_page_config(
+    page_title="Signals & Systems Virtual Lab",
+    layout="wide",
+    page_icon=" "
+)
+
 # Title of the app
 st.title("Nyquist Sampling Theorem Demonstration")
 
