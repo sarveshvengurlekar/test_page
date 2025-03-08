@@ -10,7 +10,7 @@ st.title("Nyquist Sampling Theorem Demonstration")
 
 # Sidebar: Choose input method
 st.header("Input Signal")
-input_method = st.selectbox("Select Signal Source", ["Upload Audio File", "Generate Tone"])
+input_method = st.selectbox("Select Signal Source", ["Upload Audio File (.wav)", "Generate Tone"])
 
 # Function to convert numpy audio to WAV
 def convert_to_wav(audio_array, sample_rate):
@@ -27,7 +27,7 @@ audio_data = None
 sample_rate = 44100  # Default sample rate
 
 # Handle audio file upload
-if input_method == "Upload Audio File":
+if input_method == "Upload Audio File (.wav)":
     upload_file = st.file_uploader("Upload an audio file (WAV)", type=["wav"])
     if upload_file:
         # Read uploaded file
