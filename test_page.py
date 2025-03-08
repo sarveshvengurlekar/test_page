@@ -80,9 +80,9 @@ if audio_data is not None:
 
     # Function to plot time-domain signal
     def plot_time_domain(audio_signal, sample_rate, title, ax, color):
-        N = min(1000, len(audio_signal))
-        t = np.linspace(0, len(audio_signal) / sample_rate, num=len(audio_signal))
-        ax.plot(t, audio_signal, color=color)
+        N = min(1500, len(audio_signal))
+        t = np.linspace(0, len(audio_signal) / sample_rate, num=N)
+        ax.plot(t, audio_signal[:N], color=color)
         ax.set_xlabel("Time (s)")
         ax.set_ylabel("Amplitude")
         ax.set_title(title)
