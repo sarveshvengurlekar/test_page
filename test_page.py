@@ -119,6 +119,42 @@ if audio_data is not None:
     sampling_rates = [Fs_under, Fs_critical, Fs_over]
     titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
 
+    # Function to plot frequency spectrum
+    def plot_frequency_spectrum(audio_signal, sample_rate, title, ax):
+        N = len(audio_signal)
+        fft_data = np.fft.fft(audio_signal)
+        fft_freqs = np.fft.fftfreq(N, 1 / sample_rate)
+         
+        # Consider only positive frequencies
+        positive_freqs = fft_freqs[:N // 2]
+        positive_fft_data = np.abs(fft_data[:N // 2])
+
+        ax.plot(positive_freqs, positive_fft_data, color="blue")
+        ax.set_xlabel("Frequency (Hz)")
+        ax.set_ylabel("Magnitude")
+        ax.set_title(title)
+       ax.set_xlim(0, sample_rate / 2)  # Nyquist limit
+
+       # Plot the frequency spectra for original and sampled signals
+       fig, axs = plt.subplots(4, 1, figsize=(8, 12))
+
+       # Original signal spectrum
+       plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0])
+
+       # Sampled signals and their spectra
+       sampling_rates = [Fs_under, Fs_critical, Fs_over]
+       titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
+
+       for i, Fs in enumerate(sampling_rates):
+           sample_indices = np.arange(0, len(audio_data), sample_rate // Fs)
+           sampled_signal = audio_data[sample_indices]
+           reconstructed_signal = np.interp(np.arange(len(audio_data)), sample_indices, sampled_signal)
+           plot_frequency_spectrum(reconstructed_signal, sample_rate, f"{titles[i]} Spectrum", axs[i+1])
+        st.pyplot(fig)
+
+
+
+
     # Play reconstructed audio
     st.subheader("Reconstructed Audio")
     for i, Fs in enumerate(sampling_rates):
