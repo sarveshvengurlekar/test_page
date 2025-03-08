@@ -100,7 +100,7 @@ if audio_data is not None:
         ax.set_xlim(0, sample_rate / 2)
 
     # Create 4x4 Subplots
-    fig, axs = plt.subplots(2, 4, figsize=(16, 16))
+    fig, axs = plt.subplots(4, 4, figsize=(16, 16))
 
     # Original Signal (Time Domain & Frequency Domain)
     plot_time_domain(audio_data, sample_rate, "Original Signal (Time Domain)", axs[0, 0], "darkviolet")
