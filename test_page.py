@@ -37,7 +37,7 @@ if input_method == "Upload Audio File (.wav)":
         if audio_data.ndim > 1:
             audio_data = np.mean(audio_data, axis=1)
 
-        st.sidebar.write(f"Original Sampling Rate: {sample_rate} Hz")
+        st.write(f"Original Sampling Rate: {sample_rate} Hz")
 
 # Handle sine wave generation
 elif input_method == "Generate Tone":
