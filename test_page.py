@@ -85,7 +85,7 @@ if audio_data is not None:
         ax.set_xlim(0, sample_rate / 2)
 
     # Plot Frequency Spectrum
-    fig, axs = plt.subplots(4, 1, figsize=(10, 15))
+    fig, axs = plt.subplots(4, 1, figsize=(10, 18))
     plot_frequency_spectrum(audio_data, sample_rate, "Original Signal Spectrum", axs[0])
 
     for i, Fs in enumerate(sampling_rates):
