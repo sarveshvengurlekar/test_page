@@ -132,10 +132,3 @@ if audio_data is not None:
     plt.tight_layout()
     st.pyplot(fig)
 
-    # Conclusion
-    st.write("### Conclusion")
-    st.write("""
-    - **Undersampling:** Causes aliasing, distorting the original signal.
-    - **Critical Sampling:** Barely preserves the original waveform.
-    - **Oversampling:** Reconstructs the signal accurately without aliasing.
-    """)
