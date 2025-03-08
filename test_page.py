@@ -35,27 +35,27 @@ sample_rate = 44100  # Default sample rate
 # Handle audio file upload
 if input_method == "Upload Audio File (.wav)":
     upload_file = st.file_uploader("Upload an audio file (WAV)", type=["wav"])
+
+    # Define the local file path
+    local_file_path = "path/to/your/audio.wav"  # Update this with the correct path
+
+    # Read the file in binary mode
+    with open(local_file_path, "rb") as file:
+        wav_bytes = file.read()
+    # Streamlit download button
+    st.download_button(
+        label="📥 Download Audio File",
+        data=wav_bytes,
+        file_name="downloaded_audio.wav",
+        mime="audio/wav")
+
+
+    
     if upload_file:
         audio_data, sample_rate = sf.read(upload_file)
         if audio_data.ndim > 1:
             audio_data = np.mean(audio_data, axis=1)  # Convert to mono
-    import streamlit as st
-
-# Define the local file path
-local_file_path = "path/to/your/audio.wav"  # Update this with the correct path
-
-# Read the file in binary mode
-with open(local_file_path, "rb") as file:
-    wav_bytes = file.read()
-
-# Streamlit download button
-st.download_button(
-    label="📥 Download Audio File",
-    data=wav_bytes,
-    file_name="Sampling_Thm_audio.wav",
-    mime="audio/wav"
-)
-        st.write(f"Original Sampling Rate: {sample_rate} Hz")
+            st.write(f"Original Sampling Rate: {sample_rate} Hz")
 
 # Handle sine wave generation
 elif input_method == "Generate Tone":
