@@ -84,7 +84,7 @@ if audio_data is not None:
     st.audio(convert_to_wav(audio_data, sample_rate), format="audio/wav")
 
     # Plot original waveform
-    fig, ax = plt.subplots(col)
+    fig, ax = plt.subplots()
     ax.plot(np.arange(len(audio_data)) / sample_rate, audio_data, color="#9400D3")
     ax.set_xlabel("Time (s)")
     ax.set_ylabel("Amplitude")
