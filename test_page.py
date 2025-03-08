@@ -9,8 +9,8 @@ import wave
 st.title("Nyquist Sampling Theorem Demonstration")
 
 # Sidebar: Choose input method
-st.sidebar.header("Input Signal")
-input_method = st.sidebar.selectbox("Select Signal Source", ["Upload Audio File", "Generate Tone"])
+st.header("Input Signal")
+input_method = st.selectbox("Select Signal Source", ["Upload Audio File", "Generate Tone"])
 
 # Function to convert numpy audio to WAV
 def convert_to_wav(audio_array, sample_rate):
@@ -41,16 +41,16 @@ if input_method == "Upload Audio File":
 
 # Handle sine wave generation
 elif input_method == "Generate Tone":
-    st.sidebar.header("Tone Generator")
-    frequency = st.sidebar.slider("Tone Frequency (Hz)", 50, 5000, 1000)
-    duration = st.sidebar.slider("Duration (seconds)", 1, 5, 2)
+    st.header("Tone Generator")
+    frequency = st.slider("Tone Frequency (Hz)", 50, 5000, 1000)
+    duration = st.slider("Duration (seconds)", 1, 5, 2)
     sample_rate = 44100  # Default sampling rate
 
     # Generate sine wave
     t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
     audio_data = 0.5 * np.sin(2 * np.pi * frequency * t)
 
-    st.sidebar.write(f"Generated Tone: {frequency} Hz | {duration} sec")
+    st.write(f"Generated Tone: {frequency} Hz | {duration} sec")
 
 # Ensure audio_data is defined and is 1D (mono) for both uploaded and generated signals
 if audio_data is not None and audio_data.ndim > 1:
@@ -76,7 +76,7 @@ def get_max_frequency(audio_data, sample_rate):
 # Calculate maximum frequency from the uploaded/generated audio
 if audio_data is not None:
     max_freq = get_max_frequency(audio_data, sample_rate)
-    st.sidebar.write(f"Maximum Frequency Component: {max_freq:.2f} Hz")
+    st.write(f"Maximum Frequency Component: {max_freq:.2f} Hz")
 
 # Play original audio or tone
 if audio_data is not None:
@@ -92,10 +92,10 @@ if audio_data is not None:
     st.pyplot(fig)
 
     # Sampling controls
-    st.sidebar.header("Sampling Parameters")
+    st.header("Sampling Parameters")
     
     # Use the calculated maximum frequency instead of a fixed value
-    st.sidebar.write(f"Calculated Max Frequency: {max_freq:.2f} Hz")
+    st.write(f"Calculated Max Frequency: {max_freq:.2f} Hz")
     
     # Default sampling rates based on the calculated maximum frequency
     default_Fs_under = int(max_freq / 1.5)  # Undersampling (Aliasing)
@@ -103,9 +103,9 @@ if audio_data is not None:
     default_Fs_over = int(2.5 * max_freq)  # Oversampling
 
     # User-defined sampling rates
-    Fs_under = st.sidebar.number_input("Undersampling Frequency (Fs < Fm)", min_value=1, value=default_Fs_under)
-    Fs_critical = st.sidebar.number_input("Critical Sampling Frequency (Fs = Fm)", min_value=1, value=default_Fs_critical)
-    Fs_over = st.sidebar.number_input("Oversampling Frequency (Fs > 2Fm)", min_value=1, value=default_Fs_over)
+    Fs_under = st.number_input("Undersampling Frequency (Fs < Fm)", min_value=1, value=default_Fs_under)
+    Fs_critical = st.number_input("Critical Sampling Frequency (Fs = Fm)", min_value=1, value=default_Fs_critical)
+    Fs_over = st.number_input("Oversampling Frequency (Fs > 2Fm)", min_value=1, value=default_Fs_over)
 
     # Display calculated values
     st.write("### Calculated Sampling Frequencies:")
