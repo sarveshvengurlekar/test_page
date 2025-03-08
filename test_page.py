@@ -70,7 +70,7 @@ if audio_data is not None:
     
     sampling_rates = [Fs_under, Fs_critical, Fs_over]
     titles = ["Undersampling (Aliasing)", "Critical Sampling", "Oversampling (No Aliasing)"]
-    color = ["red", "redorange","darkblue"]
+    color = ["red", "orange", "darkblue"]
 
     # Function to plot frequency spectrum
     def plot_frequency_spectrum(audio_signal, sample_rate, title, ax, color):
