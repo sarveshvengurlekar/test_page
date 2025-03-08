@@ -93,7 +93,10 @@ if audio_data is not None:
         sample_indices = np.arange(0, len(audio_data), sample_rate // Fs)
         sampled_signal = audio_data[sample_indices]
         reconstructed_signal = np.interp(np.arange(len(audio_data)), sample_indices, sampled_signal)
-        plot_frequency_spectrum(reconstructed_signal, sample_rate, f"{titles[i]} Spectrum", axs[i+1])
+
+    # Pass the correct color argument from the 'color' list
+    plot_frequency_spectrum(reconstructed_signal, sample_rate, f"{titles[i]} Spectrum", axs[i+1], color[i])
+
     
     st.pyplot(fig)
 
