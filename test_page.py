@@ -68,7 +68,7 @@ st.markdown(
     }}
 
     .main-content {{
-        margin-top: 160px; /* Push content below the fixed header */
+        margin-top: 50px; /* Push content below the fixed header */
     }}
 
     .footer {{
