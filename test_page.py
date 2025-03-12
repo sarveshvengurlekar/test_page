@@ -11,8 +11,6 @@ st.set_page_config(
     page_icon=" "
 )
 
-
-
 # Inject custom CSS for header styling
 st.markdown(
     f"""
@@ -39,7 +37,6 @@ st.markdown(
         text-align: center;
     }}
     
-
     .header p {{
         font-family: "Times New Roman", Times, serif;
         font-size: 15px;
@@ -69,9 +66,9 @@ st.markdown(
         width: 100px;
         height: auto;
     }}
-    .stApp {{
-        margin-top: 180px; /* Push content below the fixed header */
-        padding-bottom: 80px; /* Avoid footer overlap */
+
+    .main-content {{
+        margin-top: 160px; /* Push content below the fixed header */
     }}
 
     .footer {{
@@ -97,7 +94,6 @@ st.markdown(
             <p>Agnel Technical Education Complex Sector 9-A, Vashi, Navi Mumbai, Maharashtra, India PIN - 400703</p>
             <p>(An Autonomous Institute & Permanently Affiliated To University Of Mumbai)</p>
         </div>
-        </div>
     </div>
     """,
     unsafe_allow_html=True
@@ -122,24 +118,14 @@ visibility:hidden;
 </style>
 """
 
-st.markdown(
-    """
-    <style>
-    .main-content {
-        margin-top: 160px; /* Adjust this value to position content properly */
-    }
-    </style>
-    <div class="main-content"></div>
-    """,
-    unsafe_allow_html=True
-)
-
 # Remove unnecessary UI elements
 st.markdown("""<style>[data-testid="stDecoration"] { display: none; }</style>""", unsafe_allow_html=True)
 st.markdown(hide_menu, unsafe_allow_html=True)  # Apply hidden menu style
 
+# Main Content Wrapper
+st.markdown('<div class="main-content">', unsafe_allow_html=True)
 
-st.markdown("<div class="main-content">;<h1 style='text-align: center; color: black;'> Our Vision </h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'> Our Vision </h1>", unsafe_allow_html=True)
 st.markdown(
     "<p style='font-size:28px; text-align: justify;'>"
     "The <b>Signal Processing Virtual Lab</b> is a digital learning platform designed by <b>Fr. C. Rodrigues Institute of Technology</b> to bridge the gap "
@@ -167,12 +153,9 @@ features = [
 
 # Display Key Features with Larger Font
 for feature in features:
-    st.markdown(f"<p style='font-size:28px;'> - {feature}</p>", "</div>", unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size:28px;'> - {feature}</p>", unsafe_allow_html=True)
 
-
-st.header("")
-
-st.header("</> Developers Team", divider="blue")
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.header("")
 
