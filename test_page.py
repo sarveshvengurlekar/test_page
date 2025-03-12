@@ -113,8 +113,6 @@ st.markdown(
             <p>Agnel Technical Education Complex Sector 9-A, Vashi, Navi Mumbai, Maharashtra, India PIN - 400703</p>
             <p>(An Autonomous Institute & Permanently Affiliated To University Of Mumbai)</p>
         </div>
-        <div class="logo-container">
-            <img src="data:image/png;base64,{logo_base64}" alt="Institute Logo">
         </div>
     </div>
     """,
