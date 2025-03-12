@@ -44,6 +44,11 @@ st.markdown(
         margin: 5px 0;
     }}
 
+    .stApp {{
+        margin-top: 180px; /* Push content below the fixed header */
+        padding-bottom: 80px; /* Avoid footer overlap */
+    }}
+
     .header p1 {{
         font-family: "Times New Roman", Times, serif;
         font-size: 30px;
