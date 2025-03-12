@@ -11,17 +11,6 @@ st.set_page_config(
     page_icon=" "
 )
 
-import streamlit as st  # Import Streamlit for web app creation
-import base64  # Import base64 for encoding images
-import os  # Import os to check file paths
-
-# Set Streamlit page configuration
-st.set_page_config(
-    page_title="Signal Processing Virtual Lab",
-    layout="wide",
-    page_icon=" "  # Placeholder for page icon
-)
-
 # Function to encode an image as a Base64 string
 def get_base64_image(image_path):
     """Encodes an image file to Base64 format."""
