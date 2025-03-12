@@ -11,23 +11,7 @@ st.set_page_config(
     page_icon=" "
 )
 
-# Function to encode an image as a Base64 string
-def get_base64_image(image_path):
-    """Encodes an image file to Base64 format."""
-    try:
-        with open(image_path, "rb") as img_file:
-            return base64.b64encode(img_file.read()).decode()
-    except Exception as e:
-        st.error(f"Error encoding image: {e}")
-        return None
 
-# Paths to logo and banner images
-logo_path = "static/fcritlogo.png"  # Ensure this path is correct
-banner_path = "Media/Website_Banner.jpeg"  # Ensure this path is correct
-
-# Encode images in Base64
-logo_base64 = get_base64_image(logo_path)
-banner_base64 = get_base64_image(banner_path)
 
 # Inject custom CSS for header styling
 st.markdown(
