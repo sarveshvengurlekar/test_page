@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # Title of the app
-st.title("Nyquist Sampling Theorem Demonstration")
+st.sidebar.title("Nyquist Sampling Theorem Demonstration")
 
 # Sidebar: Choose input method
 st.header("Input Signal")
