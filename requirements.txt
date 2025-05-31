@@ -1,4 +1,4 @@
-streamlit
-numpy
-matplotlib
-soundfile
+streamlit>=1.39.0
+numpy>=1.26.4
+scipy>=1.14.1
+matplotlib>=3.9.2
